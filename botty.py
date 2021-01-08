@@ -21,7 +21,7 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
 @bot.command()
-async def random_ph_post():
+async def random_ph_post(ctx):
     # Get weekly top 10 posts of r/programminghumor
     url = 'https://www.reddit.com/r/programminghumor/top/.json?t=week&limit=10'
     req = requests.get(url, headers = {'User-agent': 'your bot 0.1'})
