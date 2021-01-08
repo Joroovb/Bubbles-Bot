@@ -12,15 +12,13 @@ token = os.getenv('DISCORD_TOKEN')
 intents = discord.Intents.default()
 intents.presences = True
 
-client = discord.Client(intents=intents)
-
-bot = commands.Bot(command_prefix='$')
+client = commands.Bot(command_prefix='$', intents=intents)
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
-@bot.command()
+@client.command()
 async def random_ph_post(ctx):
     # Get weekly top 10 posts of r/programminghumor
     url = 'https://www.reddit.com/r/programminghumor/top/.json?t=week&limit=10'
@@ -34,5 +32,9 @@ async def random_ph_post(ctx):
         handler.write(img_data)
     channel = client.guilds[0].text_channels[0]
     await channel.send('Hello', file=discord.File('top_image.jpg'))
+
+@client.command()
+async def ping(ctx):
+	await ctx.channel.send("pong")
 
 client.run(token)
