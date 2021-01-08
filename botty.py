@@ -4,6 +4,7 @@ import requests
 import json
 import discord
 from dotenv import load_dotenv
+from discord.ext import commands
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -13,10 +14,13 @@ intents.presences = True
 
 client = discord.Client(intents=intents)
 
+bot = commands.Bot(command_prefix='$')
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
+@bot.command()
 async def random_ph_post():
     # Get weekly top 10 posts of r/programminghumor
     url = 'https://www.reddit.com/r/programminghumor/top/.json?t=week&limit=10'
